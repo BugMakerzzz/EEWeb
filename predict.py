@@ -65,7 +65,8 @@ def trigger_extractor_deal(pre_dataset, iterator, trigger_model_path, dataset_me
         return instances
     
     pretrained_bert = PretrainedBertEmbedder(
-        pretrained_model='../PLMEE/src/chinese_roberta_wwm_ext',
+        pretrained_model='models/chinese_roberta_wwm_ext',
+        # pretrained_model='hfl/chinese-roberta-wwm-ext',
         requires_grad=True,
         top_layer_only=True)
 
@@ -118,7 +119,8 @@ def trigger_extractor_deal(pre_dataset, iterator, trigger_model_path, dataset_me
 
 def argument_extractor_deal(instances, iterator, argument_model_path, dataset_meta):
     pretrained_bert = PretrainedBertEmbedder(
-        pretrained_model='../PLMEE/src/chinese_roberta_wwm_ext',
+        pretrained_model='models/chinese_roberta_wwm_ext',
+        # pretrained_model='hfl/chinese-roberta-wwm-ext',
         requires_grad=True,
         top_layer_only=True)
 
@@ -163,16 +165,17 @@ def argument_extractor_deal(instances, iterator, argument_model_path, dataset_me
 def transform(input_sentence):
     # ==== indexer and reader =====
     bert_indexer = {'tokens': PretrainedBertIndexer(
-        pretrained_model='../PLMEE/src/chinese_roberta_wwm_ext/vocab.txt',
+        pretrained_model='models/chinese_roberta_wwm_ext/vocab.txt',
+        # pretrained_model='hfl/chinese-roberta-wwm-ext/vocab.txt',
         use_starting_offsets=True,
         do_lowercase=False)}
-    data_meta = DataMeta(event_id_file='../PLMEE/src/data/DuEE/events.id', role_id_file='../PLMEE/src/data/DuEE/roles.id')
+    data_meta = DataMeta(event_id_file='data/DuEE/DuEE_events.id', role_id_file='data/DuEE/DuEE_roles.id')
     
     trigger_reader = TriggerReader(data_meta=data_meta, token_indexer=bert_indexer)
     role_reader = RoleReader(data_meta=data_meta, token_indexer=bert_indexer)
 
     # ==== dataset =====
-    role_train_dataset = role_reader.read('../PLMEE/src/data/DuEE/train.json')
+    role_train_dataset = role_reader.read('data/DuEE/train.json')
     data_meta.compute_AF_IEF(role_train_dataset)
 
 
@@ -183,21 +186,17 @@ def transform(input_sentence):
         batch_size=1)
     iterator.index_with(vocab)
 
-    trigger_model_path = '../PLMEE/src/save/DuEE/bert_base/trigger/model_state_epoch_19.th'
-    argument_model_path = '../PLMEE/src/save/DuEE/bert_base/role/model_state_epoch_19.th'
+    trigger_model_path = 'models/PLMEE/trigger_model.th'
+    argument_model_path = 'models/PLMEE/role_model.th'
     
 
     text_reader = TextReader(data_meta=data_meta, token_indexer=bert_indexer)
     pre_dataset = text_reader.read(input_sentence)
     
     print('=====> Extracting triggers...')
-    # if not os.path.exists(instance_pkl_path):
+
     instances = trigger_extractor_deal(pre_dataset=pre_dataset, iterator=iterator, trigger_model_path=trigger_model_path, dataset_meta=data_meta)
-    # pkl.dump(instances, open(instance_pkl_path, 'wb'))
-    # else:
-    #     instances = pkl.load(open(instance_pkl_path, 'rb'))
-    # print("instances num:", len(instances))
-    # exit(0)
+
     print('=====> Extracting arguments...')
     pred_spans = argument_extractor_deal(instances=instances, iterator=iterator, argument_model_path=argument_model_path, dataset_meta=data_meta)
     # exit(0)
@@ -234,4 +233,5 @@ if __name__ == "__main__":
     id = uid.hex
     input['id'] = id
     inputJson = json.dumps(input)
+
     transform(inputJson)
