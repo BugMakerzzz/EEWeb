@@ -4,11 +4,12 @@
 <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ACT Event Extractor</title>
+    <title>SB Admin 2 - 404</title>
 
     <!-- Custom fonts for this template-->
     <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -108,77 +109,22 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                 </nav>
+
+                
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">ACT Event Extractor</h1>
-                    </div>
-
-                   
-                    <form class="user" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user w-50" name="text" 
-                                    placeholder="输入语句">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="dropdown col-md-1">
-                                    <text class="btn btn-primary">
-                                        模型选择
-                                    </text>
-                                </div>
-                                <select name="model" class="dropdown mb-4 col-md-1">
-                                    <div class="dropdown-menu animated--fade-in"
-                                        aria-labelledby="dropdownMenuButton">
-                                        <option class="dropdown-item">PLMEE</option>
-                                        <option class="dropdown-item">bert-CRF</option>
-                                    </div>
-                                </select>
-                                <div class="dropdown mb-4 col-md-1"></div>
-                                <div class="dropdown mb-4 col-md-1">
-                                    <text class="btn btn-primary">
-                                    语言选择
-                                    </text>
-                                </div>
-                                <select name="language" class="dropdown mb-4 col-md-1">
-                                    <div class="dropdown-menu animated--fade-in"
-                                        aria-labelledby="dropdownMenuButton">
-                                        <option class="dropdown-item">Chinese</option>
-                                        <option class="dropdown-item">English</option>
-                                    </div>
-                                </select>
-                            </div>
-                            <br>
-                            <input type="submit" class="btn btn-primary w-50">
-                        </div>
-                           
-                    </form>
-            
-                    <br>
-                    <!-- Content Row -->
-                    <div class="card shadow mb-4 w-50">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">事件</h6>
-                            </div>
-                            <div class="card-body">
-                                {% if result %}
-                                    {% for key in result['event'].keys()%} 
-                                    <p>事件类型: {{key}}</p>
-                                        {% for value in result['event'][key] %}
-                                        <p>事件角色及论元: {{value}}</p>
-                                        {% endfor %}
-                                    {% endfor %}
-                                {% endif %}
-                            </div>      
-                    </div>
             </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
@@ -190,8 +136,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -222,13 +166,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../static/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../static/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../static/js/demo/chart-area-demo.js"></script>
-    <script src="../static/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

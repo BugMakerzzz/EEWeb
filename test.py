@@ -28,14 +28,15 @@ def home():
       result = {}         
       output = predict(inputJson, model=model, language=language)
       result['text'] = output
-      types = [] 
-      arguments = []
+      types = {}
       for item in output:
-         types.append(item['event_type'])
+         type = item['event_type']
+         if type not in types.keys():
+            args = set()
+            types[type] = args
          for it in item['arguments']:
-            arguments.append(it['role'] + ':' + it['argument'])
-      result['type'] = types
-      result['argument'] = arguments          
+            types[type].add(it['role'] + '--' + it['argument'])
+      result['event'] = types        
       return render_template("index.html", result=result)
 
 #这里扩展模型和语言
