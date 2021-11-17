@@ -163,21 +163,23 @@
             
                     <br>
                     <!-- Content Row -->
-                    <div class="card shadow mb-4 w-50">
+                    <div class="row">
+                    {% if result %}
+                        {% for key in result['event'].keys()%} 
+                        <div class="card shadow mb-4 w-50">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">事件</h6>
                             </div>
                             <div class="card-body">
-                                {% if result %}
-                                    {% for key in result['event'].keys()%} 
-                                    <p>事件类型: {{key}}</p>
-                                        {% for value in result['event'][key] %}
-                                        <p>事件角色及论元: {{value}}</p>
-                                        {% endfor %}
-                                    {% endfor %}
-                                {% endif %}
+                        <p>事件类型: {{key}}</p>
+                            {% for value in result['event'][key] %}
+                            <p>事件角色及论元: {{value}}</p>
+                            {% endfor %}
                             </div>      
-                    </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>    
             </div>
 
         </div>
